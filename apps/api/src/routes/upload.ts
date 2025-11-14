@@ -1,11 +1,12 @@
 import { Elysia, sse, t } from "elysia";
-import { ensureDir, formatFileSize, isImageFile } from "../utils/file.utils";
+import {  formatFileSize, isImageFile } from "shared-utils";
 import { randomUUID } from "crypto";
 import path, { join } from "path";
 import { unlink, stat } from "fs/promises";
 import { spawn } from "child_process";
 import { readdirSync, statSync, readFileSync } from "fs";
 import JSZip from "jszip";
+import { ensureDir } from "../utils";
 export interface ConversionResult {
   status: string;
   originalSize: number;

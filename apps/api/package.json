@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "shared-configs": "workspace:*",
+    "shared-utils": "workspace:*",
     "@elysiajs/cors": "^1.4.0",
     "@elysiajs/static": "^1.4.6",
     "archiver": "^7.0.1",

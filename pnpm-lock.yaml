@@ -32,6 +32,9 @@ importers:
       shared-configs:
         specifier: workspace:*
         version: link:../../packages/shared-configs
+      shared-utils:
+        specifier: workspace:*
+        version: link:../../packages/shared-utils
     devDependencies:
       '@types/archiver':
         specifier: ^7.0.0
@@ -66,6 +69,9 @@ importers:
       shared-configs:
         specifier: workspace:*
         version: link:../../packages/shared-configs
+      shared-utils:
+        specifier: workspace:*
+        version: link:../../packages/shared-utils
       tailwindcss:
         specifier: ^4.1.17
         version: 4.1.17
@@ -111,6 +117,8 @@ importers:
         version: rolldown-vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)
 
   packages/shared-configs: {}
+
+  packages/shared-utils: {}
 
 packages:
 

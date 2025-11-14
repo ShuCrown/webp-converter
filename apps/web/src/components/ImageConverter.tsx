@@ -18,6 +18,8 @@ import {
   TriangleAlert,
 } from "lucide-react";
 import { toast, Toaster } from "react-hot-toast";
+import { formatFileSize } from "shared-utils";
+
 //生成随机数
 const key = Math.random().toString(36).substring(4);
 type TaskStatus = "compressing" | "completed" | "error";
@@ -39,11 +41,6 @@ const handleDownload = (url: string) => {
   a.href = url;
   a.download = url.split("/").pop() || "";
   a.click();
-};
-const formatFileSize = (bytes: number): string => {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(2)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 };
 export default function ImageConverter() {
   const [tasks, setTasks] = useState<Record<string, CompressionTask>>({});

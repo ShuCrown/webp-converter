@@ -1,9 +1,9 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
-import { certificates } from "shared-configs";
+import { config,certificates } from "shared-configs";
 import { uploadRoutes } from "./routes/upload";
-import { ensureDir } from "./utils/file.utils";
+import { ensureDir } from "./utils";
 
 // 确保目录存在
 await ensureDir("./uploads");
@@ -74,7 +74,7 @@ const app = new Elysia({
       error: "Internal server error",
     };
   })
-  .listen(4000);
+  .listen(config.https.port);
 
 console.log(
   `🦊 Elysia server is running at http://${app.server?.hostname}:${app.server?.port}`

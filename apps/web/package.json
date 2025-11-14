@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "shared-configs": "workspace:*",
+    "shared-utils": "workspace:*",
     "@radix-ui/themes": "^3.2.1",
     "@tailwindcss/vite": "^4.1.17",
     "@vitejs/plugin-basic-ssl": "^2.1.0",
