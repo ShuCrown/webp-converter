@@ -1,5 +1,5 @@
 import { Elysia, sse, t } from "elysia";
-import {  formatFileSize, isImageFile } from "shared-utils";
+import { formatFileSize, isImageFile } from "shared-utils";
 import { randomUUID } from "crypto";
 import path, { join } from "path";
 import { unlink, stat } from "fs/promises";
@@ -40,13 +40,12 @@ export const uploadRoutes = new Elysia({ prefix: "/api" })
           error: `上传文件 ${file.name} 超过 10MB上限`,
         };
       }
-      // 异步处理图片转换
-      processImage(taskId, file, key);
       taskProgress.set(taskId, {
         originalSize: file.size,
         status: "processing",
       });
-
+      // 异步处理图片转换
+      processImage(taskId, file, key);
       return { taskId };
     },
     {
@@ -77,7 +76,9 @@ export const uploadRoutes = new Elysia({ prefix: "/api" })
 
       // 任务完成或失败时结束 SSE 流
       if (progress.status === "completed" || progress.status === "failed") {
-        taskProgress.delete(taskId);
+        setTimeout(() => {
+          taskProgress.delete(taskId);
+        }, 10000);
         break;
       }
 

@@ -11,6 +11,7 @@ import {
   ScrollArea,
 } from "@radix-ui/themes";
 import {
+  Bug,
   FileDown,
   FileUp,
   FolderDown,
@@ -261,66 +262,69 @@ export default function ImageConverter() {
           >
             {Object.values(tasks).map((task) => {
               return (
-                <>
-                  <Flex className="w-full" key={task.taskId} gap="2">
-                    <Avatar src={task.previewUrl} fallback={""} />
-                    <Flex className="flex-1" direction="column">
-                      <Flex justify={"between"} gap="2">
-                        <div>
-                          <div className="font-black text-sm">
-                            {task.fileName}
-                          </div>
-                          <div className="text-xs">
-                            {formatFileSize(task.originalSize)}
-                          </div>
+                <Flex className="w-full" key={task.taskId} gap="2">
+                  <Avatar src={task.previewUrl} fallback={""} />
+                  <Flex className="flex-1" direction="column">
+                    <Flex justify={"between"} gap="2">
+                      <div>
+                        <div className="font-black text-sm">
+                          {task.fileName}
                         </div>
-                        <div>
-                          {task.downloadUrl ? (
-                            <Flex gap="2" align={"center"}>
-                              <div>
-                                <div className="font-bold text-sm">
-                                  {task.compressionRatio}%
-                                </div>
-                                <div className="text-xs">
-                                  {task.convertedSize}
-                                </div>
+                        <div className="text-xs">
+                          {formatFileSize(task.originalSize)}
+                        </div>
+                      </div>
+                      <div>
+                        {task.downloadUrl ? (
+                          <Flex gap="2" align={"center"}>
+                            <div>
+                              <div className="font-bold text-sm">
+                                {task.compressionRatio}%
                               </div>
+                              <div className="text-xs">
+                                {task.convertedSize}
+                              </div>
+                            </div>
 
-                              <Button
-                                color={
-                                  task.compressionRatio > 0 ? "red" : "indigo"
-                                }
-                                variant="soft"
-                                onClick={() => {
-                                  handleDownload(task.downloadUrl);
-                                }}
-                                className="cursor-pointer"
-                              >
-                                {task.compressionRatio > 0 ? (
-                                  <FileUp className="size-4" />
-                                ) : (
-                                  <FileDown className="size-4" />
-                                )}
-                                <span className="text-xs">webp</span>
-                              </Button>
-                            </Flex>
-                          ) : (
-                            "compressing..."
-                          )}
-                        </div>
-                      </Flex>
-                      {!task.downloadUrl && (
-                        <Progress
-                          duration="10s"
-                          size="1"
-                          value={task.progress}
-                          className="mt-1"
-                        />
-                      )}
-                      <Separator my="2" size="4" />
+                            <Button
+                              color={
+                                task.compressionRatio > 0 ? "red" : "indigo"
+                              }
+                              variant="soft"
+                              onClick={() => {
+                                handleDownload(task.downloadUrl);
+                              }}
+                              className="cursor-pointer"
+                            >
+                              {task.compressionRatio > 0 ? (
+                                <FileUp className="size-4" />
+                              ) : (
+                                <FileDown className="size-4" />
+                              )}
+                              <span className="text-xs">webp</span>
+                            </Button>
+                          </Flex>
+                        ) : task.status !== "failed" ? (
+                          "compressing"
+                        ) : (
+                          <Button color="red" variant="soft">
+                            <Bug className="size-4" />
+                            <span className="text-xs"> 转换失败</span>
+                          </Button>
+                        )}
+                      </div>
                     </Flex>
+                    {!task.downloadUrl && task.status !== "failed" && (
+                      <Progress
+                        duration="10s"
+                        size="1"
+                        value={task.progress}
+                        className="mt-1"
+                      />
+                    )}
+                    <Separator my="2" size="4" />
                   </Flex>
-                </>
+                </Flex>
               );
             })}
           </ScrollArea>
