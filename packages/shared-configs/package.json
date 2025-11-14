@@ -1,0 +1,19 @@
+{
+  "name": "shared-configs",
+  "version": "1.0.0",
+  "description": "Shared configurations and certificates for webp-converter",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "private": true,
+  "files": [
+    "certificates/",
+    "index.js",
+    "index.d.ts"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["config", "certificates", "webp-converter"],
+  "author": "",
+  "license": "ISC"
+}

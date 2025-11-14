@@ -1,6 +1,7 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
+import { certificates } from "shared-configs";
 import { uploadRoutes } from "./routes/upload";
 import { ensureDir } from "./utils/file.utils";
 
@@ -10,11 +11,11 @@ await ensureDir("./output");
 await ensureDir("./public");
 
 const app = new Elysia({
-  // 添加 TLS 配置
+  // 添加 TLS 配置 - 使用共享配置
   serve: {
     tls: {
-      cert: Bun.file("../cert.pem"),
-      key: Bun.file("../key.pem"),
+      cert: Bun.file(certificates.cert),
+      key: Bun.file(certificates.key),
     },
   },
 })
@@ -73,7 +74,6 @@ const app = new Elysia({
       error: "Internal server error",
     };
   })
-
   .listen(4000);
 
 console.log(
