@@ -6,18 +6,20 @@ import { uploadRoutes } from "./routes/upload";
 import { ensureDir } from "./utils";
 
 // 确保目录存在
-await ensureDir("./uploads");
+await ensureDir("./temp");
 await ensureDir("./output");
 await ensureDir("./public");
 
 const app = new Elysia({
-  // 添加 TLS 配置 - 使用共享配置
-  serve: {
-    tls: {
-      cert: Bun.file(certificates.cert),
-      key: Bun.file(certificates.key),
+  // 在 Docker 环境中不使用 TLS，直接通过 HTTP 通信
+  ...(process.env.NODE_ENV !== 'production' && {
+    serve: {
+      tls: {
+        cert: Bun.file(certificates.cert),
+        key: Bun.file(certificates.key),
+      },
     },
-  },
+  }),
 })
   // 启用 CORS
   .use(cors())

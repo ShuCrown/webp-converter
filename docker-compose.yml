@@ -1,0 +1,38 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: webp-converter-api
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./apps/api/output:/app/output
+      - ./apps/api/temp:/app/temp
+    environment:
+      - NODE_ENV=production
+    networks:
+      - webp-converter-network
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: webp-converter-web
+    ports:
+      - "8880:80"
+    depends_on:
+      - api
+    networks:
+      - webp-converter-network
+    restart: unless-stopped
+
+networks:
+  webp-converter-network:
+    driver: bridge
+
+volumes:
+  output_data:
+  uploads_data:
+  temp_data:

@@ -23,7 +23,7 @@ import { formatFileSize } from "shared-utils";
 
 //生成随机数
 const key = Math.random().toString(36).substring(4);
-type TaskStatus = "compressing" | "completed" | "error";
+type TaskStatus = "compressing" | "completed" | "failed";
 
 type CompressionTask = {
   taskId: string; // 由服务端返回的 id
@@ -34,7 +34,7 @@ type CompressionTask = {
   progress: number; // 0 - 100
   convertedSize?: number; // bytes
   compressionRatio: number; // 如 "45"
-  downloadUrl?: string;
+  downloadUrl: string;
   error?: string | null;
 };
 const handleDownload = (url: string) => {
@@ -89,7 +89,7 @@ export default function ImageConverter() {
         taskId,
         fileName: partial.fileName ?? "",
         originalSize: partial.originalSize ?? 0,
-        status: "pending",
+        status: "compressing",
         progress: 0,
       };
 
@@ -178,6 +178,7 @@ export default function ImageConverter() {
           // 更新进度与可能的中间 convertedSize
           upsertTask(taskId, {
             ...data,
+            downloadUrl: data?.downloadUrl || "",
             progress: data?.downloadUrl ? 100 : percent,
           });
         });

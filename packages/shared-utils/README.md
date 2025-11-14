@@ -21,7 +21,7 @@
 ```javascript
 import { ensureDir } from 'shared-utils';
 
-await ensureDir("./uploads");
+await ensureDir("./temp");
 await ensureDir("./output");
 ```
 
