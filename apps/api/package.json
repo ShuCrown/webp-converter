@@ -7,16 +7,14 @@
     "dev": "bun run --watch src/index.ts"
   },
   "dependencies": {
-    "shared-configs": "workspace:*",
-    "shared-utils": "workspace:*",
     "@elysiajs/cors": "^1.4.0",
     "@elysiajs/static": "^1.4.6",
-    "archiver": "^7.0.1",
     "elysia": "latest",
-    "jszip": "^3.10.1"
+    "jszip": "^3.10.1",
+    "shared-configs": "workspace:*",
+    "shared-utils": "workspace:*"
   },
   "devDependencies": {
-    "@types/archiver": "^7.0.0",
     "bun-types": "latest"
   },
   "module": "src/index.js"
