@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
-import { config,certificates } from "shared-configs";
+import { config, certificates } from "shared-configs";
 import { uploadRoutes } from "./routes/upload";
 import { ensureDir } from "./utils";
 
@@ -12,7 +12,7 @@ await ensureDir("./public");
 
 const app = new Elysia({
   // 在 Docker 环境中不使用 TLS，直接通过 HTTP 通信
-  ...(process.env.NODE_ENV !== 'production' && {
+  ...(process.env.NODE_ENV !== "production" && {
     serve: {
       tls: {
         cert: Bun.file(certificates.cert),
@@ -76,7 +76,10 @@ const app = new Elysia({
       error: "Internal server error",
     };
   })
-  .listen(config.https.port);
+  .listen({
+    hostname: "0.0.0.0",
+    port: config.https.port,
+  });
 
 console.log(
   `🦊 Elysia server is running at http://${app.server?.hostname}:${app.server?.port}`
