@@ -8,7 +8,9 @@
     "dev:api": "pnpm --filter api dev",
     "dev": "pnpm --parallel --filter \"./apps/*\" dev",
     "build": "pnpm --filter \"./apps/*\" build",
-    "install:all": "pnpm install"
+    "install:all": "pnpm install",
+    "generate-cert": "mkdir -p packages/shared-configs/certificates && openssl req -x509 -newkey rsa:4096 -keyout packages/shared-configs/certificates/key.pem -out packages/shared-configs/certificates/cert.pem -days 365 -nodes -subj '/C=US/ST=State/L=City/O=Organization/CN=localhost'",
+    "postinstall": "pnpm run generate-cert"
   },
   "devDependencies": {
     "@types/node": "^20.0.0"
