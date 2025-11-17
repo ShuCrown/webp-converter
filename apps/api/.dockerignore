@@ -1,4 +1,34 @@
+# 依赖包
 node_modules
+
+# 版本控制
 .git
 .gitignore
+
+# 构建输出
 dist
+build
+
+# 临时文件和输出
+output
+temp
+
+# 日志
+*.log
+logs
+
+# IDE 配置
+.vscode
+.idea
+*.swp
+*.swo
+
+
+# Docker 文件
+Dockerfile
+.dockerignore
+
+
+# 其他不需要的文件
+.gitattributes
+.npmrc
