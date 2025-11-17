@@ -46,9 +46,6 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.17
         version: 4.1.17(rolldown-vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1))
-      '@vitejs/plugin-basic-ssl':
-        specifier: ^2.1.0
-        version: 2.1.0(rolldown-vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1))
       lucide-react:
         specifier: ^0.553.0
         version: 0.553.0(react@19.2.0)
@@ -63,10 +60,10 @@ importers:
         version: 2.6.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       shared-configs:
         specifier: workspace:*
-        version: link:../../packages/shared-configs
+        version: file:packages/shared-configs
       shared-utils:
         specifier: workspace:*
-        version: link:../../packages/shared-utils
+        version: file:packages/shared-utils
       tailwindcss:
         specifier: ^4.1.17
         version: 4.1.17
@@ -1323,12 +1320,6 @@ packages:
     resolution: {integrity: sha512-/++5CYLQqsO9HFGLI7APrxBJYo+5OCMpViuhV8q5/Qa3o5mMrF//eQHks+PXcsAVaLdn817fMuS7zqoXNNZGaw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@vitejs/plugin-basic-ssl@2.1.0':
-    resolution: {integrity: sha512-dOxxrhgyDIEUADhb/8OlV9JIqYLgos03YorAueTIeOUskLJSEsfwCByjbu98ctXitUN3znXKp0bYD/WHSudCeA==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
-    peerDependencies:
-      vite: ^6.0.0 || ^7.0.0
-
   '@vitejs/plugin-react@5.1.1':
     resolution: {integrity: sha512-WQfkSw0QbQ5aJ2CHYw23ZGkqnRwqKHD/KYsMeTkZzPT4Jcf0DcBxBtwMJxnu6E7oxw5+JC6ZAiePgh28uJ1HBA==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -2047,6 +2038,12 @@ packages:
 
   setimmediate@1.0.5:
     resolution: {integrity: sha512-MATJdZp8sLqDl/68LfQmbP8zKPLQNV6BIZoIgrscFDQ+RsvK/BxeDQOgyxKKoh0y/8h3BqVFnCqQ/gd+reiIXA==}
+
+  shared-configs@file:packages/shared-configs:
+    resolution: {directory: packages/shared-configs, type: directory}
+
+  shared-utils@file:packages/shared-utils:
+    resolution: {directory: packages/shared-utils, type: directory}
 
   shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -3464,10 +3461,6 @@ snapshots:
       '@typescript-eslint/types': 8.46.4
       eslint-visitor-keys: 4.2.1
 
-  '@vitejs/plugin-basic-ssl@2.1.0(rolldown-vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1))':
-    dependencies:
-      vite: rolldown-vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1)
-
   '@vitejs/plugin-react@5.1.1(rolldown-vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1))':
     dependencies:
       '@babel/core': 7.28.5
@@ -4142,6 +4135,10 @@ snapshots:
   semver@7.7.3: {}
 
   setimmediate@1.0.5: {}
+
+  shared-configs@file:packages/shared-configs: {}
+
+  shared-utils@file:packages/shared-utils: {}
 
   shebang-command@2.0.0:
     dependencies:

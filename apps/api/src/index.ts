@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 import { cors } from "@elysiajs/cors";
 import { staticPlugin } from "@elysiajs/static";
-import { config, certificates } from "shared-configs";
+import { config } from "shared-configs";
 import { uploadRoutes } from "./routes/upload";
 import { ensureDir } from "./utils";
 
@@ -10,17 +10,7 @@ await ensureDir("./temp");
 await ensureDir("./output");
 await ensureDir("./public");
 
-const app = new Elysia({
-  // 在 Docker 环境中不使用 TLS，直接通过 HTTP 通信
-  ...(process.env.NODE_ENV !== "production" && {
-    serve: {
-      tls: {
-        cert: Bun.file(certificates.cert),
-        key: Bun.file(certificates.key),
-      },
-    },
-  }),
-})
+const app = new Elysia({})
   // 启用 CORS
   .use(cors())
 
@@ -78,7 +68,7 @@ const app = new Elysia({
   })
   .listen({
     hostname: "0.0.0.0",
-    port: config.https.port,
+    port: config.http.port,
   });
 
 console.log(

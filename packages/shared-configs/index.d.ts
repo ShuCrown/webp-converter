@@ -1,19 +1,12 @@
-export interface CertificateConfig {
-  cert: string;
-  key: string;
-}
-
-export interface HttpsConfig {
+export interface HttpConfig {
   port: number;
   host: string;
 }
 
 export interface Config {
-  https: HttpsConfig;
-  certificates: CertificateConfig;
+  http: HttpConfig;
 }
 
 declare const config: Config;
-declare const certificates: CertificateConfig;
 
-export { config, certificates };
+export { config };
