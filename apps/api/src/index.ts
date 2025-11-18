@@ -24,19 +24,12 @@ const app = new Elysia({
   // 启用 CORS
   .use(cors())
 
-  // 静态文件服务
-  .use(
-    staticPlugin({
-      assets: "./public",
-      prefix: "/",
-    })
-  )
-
   // 输出目录静态访问
   .use(
     staticPlugin({
-      assets: "./output",
-      prefix: "/output",
+      assets: "output",
+      prefix: "/",
+      noCache: true,
     })
   )
 
@@ -50,7 +43,7 @@ const app = new Elysia({
   }))
 
   // 错误处理
-  .onError(({ code, error, set }) => {
+  .onError(({ code, error, set, path }) => {
     console.error("Error:", error);
 
     if (code === "VALIDATION") {
@@ -63,6 +56,10 @@ const app = new Elysia({
     }
 
     if (code === "NOT_FOUND") {
+      if (path.startsWith("/output/")) {
+        // 让静态插件处理，不返回自定义错误
+        return;
+      }
       set.status = 404;
       return {
         success: false,

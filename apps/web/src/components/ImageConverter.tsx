@@ -37,11 +37,38 @@ type CompressionTask = {
   downloadUrl: string;
   error?: string | null;
 };
-const handleDownload = (url: string) => {
+
+const handleDownload = async (url: string, fileName: string) => {
   const a = document.createElement("a");
   a.href = url;
-  a.download = url.split("/").pop() || "";
+  a.download = fileName;
   a.click();
+  URL.revokeObjectURL(url);
+};
+const handlePreDownload = async (downloadUrl: string) => {
+  let fileName = downloadUrl.split("/").pop() || "";
+  let response;
+  const outputUrl = downloadUrl.replace("/api/download", "/output");
+  try {
+    response = await fetch(downloadUrl);
+    if (!response.ok) {
+      console.log("outputUrl", outputUrl);
+
+      response = await fetch(outputUrl);
+      if (!response.ok) {
+        toast.error("转换失败，请重试");
+        return;
+      }
+    }
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    handleDownload(url, fileName);
+  } catch (error) {
+    const response = await fetch(outputUrl);
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    handleDownload(url, fileName);
+  }
 };
 export default function ImageConverter() {
   const [tasks, setTasks] = useState<Record<string, CompressionTask>>({});
@@ -293,7 +320,7 @@ export default function ImageConverter() {
                               }
                               variant="soft"
                               onClick={() => {
-                                handleDownload(task.downloadUrl);
+                                handlePreDownload(task.downloadUrl);
                               }}
                               className="cursor-pointer"
                             >

@@ -6,7 +6,6 @@ RUN corepack enable && corepack prepare pnpm@10.18.1 --activate
 
 WORKDIR /workspace
 
-
 # 复制所有 package.json（包括 apps 和 packages）
 COPY apps/api/package.json ./apps/api/
 COPY packages/*/package.json ./packages/
@@ -16,7 +15,7 @@ COPY packages/*/package.json ./packages/
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json ./
 
 # 安装生产依赖
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --prod --ignore-scripts
 
 # 复制源代码（包括共享包）
 COPY apps/api ./apps/api

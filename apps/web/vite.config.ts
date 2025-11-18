@@ -12,6 +12,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      "/output": {
+        target: `https://${config.https.host}:${config.https.port}`,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/output/, ""),
+        secure: false,
+      },
     },
   },
   plugins: [

@@ -6,7 +6,7 @@ FROM base AS build
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 # 安装所有依赖
-RUN pnpm install 
+RUN pnpm install --ignore-scripts
 # 构建所有必需的包（包括 shared-configs 和 shared-utils）
 RUN pnpm run -r build
 # 使用 deploy 提取 web 项目及其依赖
